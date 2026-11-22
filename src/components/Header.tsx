@@ -120,15 +120,14 @@ export function Header({ locale, dict }: HeaderProps) {
   }
 
   const desktopNavItems = [
-    { href: `/${locale}/shop`, label: dict.nav.shop },
-    { href: `/${locale}/workshops`, label: dict.nav.workshops },
-    { href: `/${locale}/about`, label: dict.nav.about },
+    { href: `/${locale}`, label: dict.nav.home, exact: true },
+    { href: `/${locale}/shop`, label: dict.nav.shop, exact: false },
+    { href: `/${locale}/workshops`, label: dict.nav.workshops, exact: false },
   ];
 
   const mobileNavItems = [
     { href: `/${locale}/shop`, label: dict.nav.shop },
     { href: `/${locale}/workshops`, label: dict.nav.workshops },
-    { href: `/${locale}/about`, label: dict.nav.about },
     { href: `/${locale}/contact`, label: dict.nav.contact },
   ];
 
@@ -219,8 +218,9 @@ export function Header({ locale, dict }: HeaderProps) {
           {/* Primary Desktop Navigation */}
           <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-7">
             {desktopNavItems.map((item) => {
-              const isActive =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const isActive = item.exact
+                ? pathname === item.href
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
@@ -526,6 +526,13 @@ export function Header({ locale, dict }: HeaderProps) {
                     {item.label}
                   </Link>
                 ))}
+                <Link
+                  href={`/${locale}/about`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="py-3.5 text-xs font-medium text-[#666666] hover:text-[#111111] transition-colors"
+                >
+                  {dict.topBar.about}
+                </Link>
                 <Link
                   href={`/${locale}/legal/delivery-returns`}
                   onClick={() => setMobileMenuOpen(false)}

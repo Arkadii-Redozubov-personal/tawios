@@ -18,25 +18,25 @@ import { ProductCard } from '@/components/ProductCard';
 import { InstagramSection } from '@/components/InstagramSection';
 import { RevealCard } from '@/components/RevealCard';
 
-// Single full-bleed editorial image per slide with smooth auto-crossfade
+// Single full-bleed 16:9 editorial campaign photograph per slide with smooth auto-crossfade
 const HERO_CAMPAIGN_LOOKS = [
   {
     slug: 'quilted-flap-bag',
-    image: '/images/products/quilted-flap-black-studio.webp',
-    alt: 'TAWIOS midnight black quilted flap bag with gold clasp',
-    objectPosition: 'object-[68%_center] sm:object-center',
+    image: '/images/hero/hero-campaign-1.webp',
+    alt: 'Editorial fashion portrait with TAWIOS black quilted velvet flap bag and gold turn-lock clasp',
+    objectPosition: 'object-[78%_18%] sm:object-[72%_18%] lg:object-center',
   },
   {
     slug: 'suede-sling-bag',
-    image: '/images/products/suede-sling-silver-editorial.webp',
-    alt: 'TAWIOS mist silver suede-feel sling bag styled on dark charcoal armchair',
-    objectPosition: 'object-center',
+    image: '/images/hero/hero-campaign-2.webp',
+    alt: 'Editorial lookbook featuring TAWIOS mist silver suede-feel crossbody sling bag over dark linen blazer',
+    objectPosition: 'object-[76%_center] sm:object-[70%_center] lg:object-center',
   },
   {
-    slug: 'dome-backpack-sand',
-    image: '/images/products/dome-backpack-sand-seated.webp',
-    alt: 'TAWIOS sand textile dome backpack lifestyle editorial',
-    objectPosition: 'object-[center_35%]',
+    slug: 'boucle-sling-bag',
+    image: '/images/hero/hero-campaign-3.webp',
+    alt: 'Haute-atelier monochrome macro of TAWIOS curly pearl-grey bouclé textile and double silver metal zippers',
+    objectPosition: 'object-[64%_center] sm:object-center',
   },
 ];
 
@@ -54,11 +54,11 @@ const CATEGORY_CARDS: Array<{
   },
   {
     category: 'backpacks',
-    image: '/images/products/dome-backpack-sand-seated.webp',
+    image: '/images/products/ring-backpack-navy-studio.webp',
   },
   {
     category: 'crossbody',
-    image: '/images/products/round-bag-crimson-studio.webp',
+    image: '/images/products/round-bag-slate-studio.webp',
   },
   {
     category: 'wallets',
@@ -66,12 +66,12 @@ const CATEGORY_CARDS: Array<{
   },
 ];
 
-// Multi-angle verified colorways so every featured card crossfades cleanly on hover
+// Neutral-tone studio colorways for clean visual cohesion across homepage bestsellers
 const FEATURED_DEFAULT_VARIANTS: Record<string, string> = {
-  'quilted-flap-bag': 'lilac-floral',
+  'quilted-flap-bag': 'midnight-black',
   'suede-sling-bag': 'mist-silver',
-  'ring-flap-backpack': 'espresso-suede',
-  'round-crossbody-bag': 'crimson-red',
+  'ring-flap-backpack': 'navy-velvet',
+  'round-crossbody-bag': 'slate-blue',
 };
 
 const MATERIAL_IMAGES = [
@@ -163,11 +163,11 @@ export function HomeView({
           {/* Clean monochrome atmospheric scrims */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 z-[2] bg-gradient-to-t from-black/78 via-black/30 to-black/10"
+            className="absolute inset-0 z-[2] bg-gradient-to-t from-black/72 via-black/22 to-black/5"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 z-[2] bg-gradient-to-r from-black/68 via-black/28 to-transparent"
+            className="absolute inset-0 z-[2] bg-gradient-to-r from-black/58 via-black/18 to-transparent"
           />
         </div>
 
@@ -225,25 +225,33 @@ export function HomeView({
         </div>
       </section>
 
-      {/* 2. Bestsellers / Featured Models Grid with Left-to-Right Scroll Reveal */}
-      <section className="py-16 sm:py-22 bg-white">
+      {/* 2. Bestsellers / Featured Models Grid with Smooth Scroll Reveal */}
+      <section className="py-16 sm:py-22 bg-white overflow-x-clip">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-[#EAEAEA]">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111]">
-              {dict.home.featuredTitle}
-            </h2>
-            <Link
-              href={`/${locale}/shop`}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-white text-xs font-semibold uppercase tracking-[0.16em] transition-colors self-start sm:self-auto"
-            >
-              <span>{dict.home.featuredAction}</span>
-              <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.7} />
-            </Link>
-          </div>
+          <RevealCard direction="up" delayMs={0} className="h-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-[#EAEAEA]">
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111]">
+                {dict.home.featuredTitle}
+              </h2>
+              <Link
+                href={`/${locale}/shop`}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-white text-xs font-semibold uppercase tracking-[0.16em] transition-colors self-start sm:self-auto"
+              >
+                <span>{dict.home.featuredAction}</span>
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.7} />
+              </Link>
+            </div>
+          </RevealCard>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
             {featured.map((product, idx) => (
-              <RevealCard key={product.id} index={idx} columns={4}>
+              <RevealCard
+                key={product.id}
+                index={idx}
+                columns={4}
+                direction="left"
+                speed="fast"
+              >
                 <ProductCard
                   product={product}
                   locale={locale}
@@ -254,7 +262,7 @@ export function HomeView({
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <RevealCard direction="up" delayMs={120} className="h-auto mt-12 text-center">
             <Link
               href={`/${locale}/shop`}
               className="inline-flex items-center gap-2.5 px-9 py-3.5 rounded-full bg-[#111111] hover:bg-[#333333] text-white text-xs font-semibold uppercase tracking-[0.18em] transition-colors"
@@ -262,29 +270,31 @@ export function HomeView({
               <span>{dict.home.ctaShop}</span>
               <ArrowRight className="w-4 h-4" strokeWidth={1.7} />
             </Link>
-          </div>
+          </RevealCard>
         </div>
       </section>
 
       {/* 3. Visual Category Cards Strip with Left-to-Right Scroll Reveal */}
-      <section className="py-16 sm:py-20 bg-[#F7F7F7] border-y border-[#EAEAEA]">
+      <section className="py-16 sm:py-20 bg-[#F7F7F7] border-y border-[#EAEAEA] overflow-x-clip">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-9">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111]">
-              {dict.home.categoriesTitle}
-            </h2>
-            <Link
-              href={`/${locale}/shop`}
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#111111] hover:text-[#666666] transition-colors self-start sm:self-auto"
-            >
-              <span>{dict.home.categoriesAction}</span>
-              <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.7} />
-            </Link>
-          </div>
+          <RevealCard direction="up" delayMs={0} className="h-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-9">
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111]">
+                {dict.home.categoriesTitle}
+              </h2>
+              <Link
+                href={`/${locale}/shop`}
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#111111] hover:text-[#666666] transition-colors self-start sm:self-auto"
+              >
+                <span>{dict.home.categoriesAction}</span>
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.7} />
+              </Link>
+            </div>
+          </RevealCard>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
             {CATEGORY_CARDS.map((card, idx) => (
-              <RevealCard key={card.category} index={idx} columns={5}>
+              <RevealCard key={card.category} index={idx} columns={5} staggerMs={95} direction="left">
                 <Link
                   href={`/${locale}/shop?category=${card.category}`}
                   className="group relative aspect-[3/4] rounded-[10px] overflow-hidden bg-[#EDEDED] block"
@@ -314,10 +324,10 @@ export function HomeView({
       </section>
 
       {/* 4. Monochrome Editorial Brand Story + 3 Hairline Pillars + 4 Texture Row */}
-      <section className="py-16 sm:py-22 bg-white">
+      <section className="py-16 sm:py-22 bg-white overflow-x-clip">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-6">
+            <RevealCard direction="left" delayMs={0} className="lg:col-span-6 h-auto">
               <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-[#F5F5F5]">
                 <Image
                   src="/images/editorial/atelier-sewing.webp"
@@ -327,23 +337,25 @@ export function HomeView({
                   className="object-cover"
                 />
               </div>
-            </div>
+            </RevealCard>
 
-            <div className="lg:col-span-6 space-y-6">
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111] leading-tight">
-                {dict.home.atelierTitle}
-              </h2>
-              <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-                {dict.home.atelierText}
-              </p>
-              <Link
-                href={`/${locale}/about`}
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#111111] hover:text-[#555555] underline underline-offset-8 transition-colors"
-              >
-                <span>{dict.home.atelierMore}</span>
-                <ArrowRight className="w-4 h-4" strokeWidth={1.7} />
-              </Link>
-            </div>
+            <RevealCard direction="up" delayMs={130} className="lg:col-span-6 h-auto">
+              <div className="space-y-6">
+                <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111] leading-tight">
+                  {dict.home.atelierTitle}
+                </h2>
+                <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+                  {dict.home.atelierText}
+                </p>
+                <Link
+                  href={`/${locale}/about`}
+                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#111111] hover:text-[#555555] underline underline-offset-8 transition-colors"
+                >
+                  <span>{dict.home.atelierMore}</span>
+                  <ArrowRight className="w-4 h-4" strokeWidth={1.7} />
+                </Link>
+              </div>
+            </RevealCard>
           </div>
 
           {/* Architectural Hairline-Divided 3 Craft Pillars */}
@@ -351,19 +363,27 @@ export function HomeView({
             {dict.home.pillars.map((pillar, idx) => {
               const Icon = pillarIcons[idx] ?? Leaf;
               return (
-                <div key={pillar.title} className="py-8 md:px-8 first:md:pl-0 last:md:pr-0 flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-full border border-[#E0E0E0] flex items-center justify-center text-[#111111] shrink-0">
-                    <Icon className="w-5 h-5" strokeWidth={1.4} />
+                <RevealCard
+                  key={pillar.title}
+                  index={idx}
+                  columns={3}
+                  staggerMs={120}
+                  direction="left"
+                >
+                  <div className="py-8 md:px-8 flex items-start gap-4">
+                    <div className="w-11 h-11 rounded-full border border-[#E0E0E0] flex items-center justify-center text-[#111111] shrink-0">
+                      <Icon className="w-5 h-5" strokeWidth={1.4} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <h3 className="font-sans text-sm sm:text-[15px] font-bold text-[#111111]">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+                        {pillar.body}
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-1.5">
-                    <h3 className="font-sans text-sm sm:text-[15px] font-bold text-[#111111]">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-                      {pillar.body}
-                    </p>
-                  </div>
-                </div>
+                </RevealCard>
               );
             })}
           </div>
@@ -371,7 +391,7 @@ export function HomeView({
           {/* 4-Column Macro Textile Textures Strip */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {dict.home.materialTiles.map((tile, idx) => (
-              <RevealCard key={tile.title} index={idx} columns={4}>
+              <RevealCard key={tile.title} index={idx} columns={4} direction="left">
                 <div className="group flex flex-col">
                   <div className="relative aspect-[4/3] rounded-[10px] bg-[#F5F5F5] overflow-hidden">
                     <Image
@@ -398,26 +418,28 @@ export function HomeView({
       </section>
 
       {/* 5. Minimalist Monochrome Workshops Editorial Band */}
-      <section className="py-16 sm:py-20 bg-[#F7F7F7] border-y border-[#EAEAEA]">
+      <section className="py-16 sm:py-20 bg-[#F7F7F7] border-y border-[#EAEAEA] overflow-x-clip">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-            <div className="lg:col-span-6 space-y-5">
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111]">
-                {dict.home.workshopsBandTitle}
-              </h2>
-              <p className="text-sm sm:text-base text-[#555555] leading-relaxed max-w-xl">
-                {dict.home.workshopsBandText}
-              </p>
-              <Link
-                href={`/${locale}/workshops`}
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#111111] hover:bg-[#333333] text-white text-xs font-semibold uppercase tracking-[0.16em] transition-colors"
-              >
-                <span>{dict.home.workshopsBandCta}</span>
-                <ArrowRight className="w-4 h-4" strokeWidth={1.7} />
-              </Link>
-            </div>
+            <RevealCard direction="up" delayMs={0} className="lg:col-span-6 h-auto">
+              <div className="space-y-5">
+                <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111]">
+                  {dict.home.workshopsBandTitle}
+                </h2>
+                <p className="text-sm sm:text-base text-[#555555] leading-relaxed max-w-xl">
+                  {dict.home.workshopsBandText}
+                </p>
+                <Link
+                  href={`/${locale}/workshops`}
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#111111] hover:bg-[#333333] text-white text-xs font-semibold uppercase tracking-[0.16em] transition-colors"
+                >
+                  <span>{dict.home.workshopsBandCta}</span>
+                  <ArrowRight className="w-4 h-4" strokeWidth={1.7} />
+                </Link>
+              </div>
+            </RevealCard>
 
-            <div className="lg:col-span-6">
+            <RevealCard direction="right" delayMs={130} className="lg:col-span-6 h-auto">
               <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-white">
                 <Image
                   src="/images/editorial/tassel-detail.webp"
@@ -427,58 +449,67 @@ export function HomeView({
                   className="object-cover"
                 />
               </div>
-            </div>
+            </RevealCard>
           </div>
         </div>
       </section>
 
       {/* 6. Mauri-Style Minimalist 2-Column FAQ Accordion */}
-      <section className="py-16 sm:py-22 bg-white">
+      <section className="py-16 sm:py-22 bg-white overflow-x-clip">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            <div className="lg:col-span-5 space-y-5">
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111] leading-tight">
-                {dict.home.faqTitle}
-              </h2>
-              <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
-                {dict.home.faqSubtitle}
-              </p>
-              <Link
-                href={`/${locale}/contact`}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#111111] hover:bg-[#333333] text-white text-xs font-semibold uppercase tracking-[0.16em] transition-colors"
-              >
-                <span>{dict.home.faqCta}</span>
-                <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.7} />
-              </Link>
-            </div>
+            <RevealCard direction="up" delayMs={0} className="lg:col-span-5 h-auto">
+              <div className="space-y-5">
+                <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111111] leading-tight">
+                  {dict.home.faqTitle}
+                </h2>
+                <p className="text-sm sm:text-base text-[#555555] leading-relaxed">
+                  {dict.home.faqSubtitle}
+                </p>
+                <Link
+                  href={`/${locale}/contact`}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#111111] hover:bg-[#333333] text-white text-xs font-semibold uppercase tracking-[0.16em] transition-colors"
+                >
+                  <span>{dict.home.faqCta}</span>
+                  <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.7} />
+                </Link>
+              </div>
+            </RevealCard>
 
             <div className="lg:col-span-7 border-t border-[#EAEAEA] divide-y divide-[#EAEAEA]">
               {dict.home.faqItems.map((item, idx) => {
                 const isOpen = openFaq === idx;
                 return (
-                  <div key={item.q}>
-                    <button
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      aria-expanded={isOpen}
-                      className="w-full py-5 flex items-center justify-between gap-4 text-left group"
-                    >
-                      <span className="text-sm sm:text-base font-semibold text-[#111111] group-hover:text-[#555555] transition-colors">
-                        {item.q}
-                      </span>
-                      <ChevronDown
-                        className={`w-5 h-5 text-[#111111] shrink-0 transition-transform duration-250 ${
-                          isOpen ? 'rotate-180' : ''
-                        }`}
-                        strokeWidth={1.6}
-                      />
-                    </button>
-                    {isOpen && (
-                      <p className="pb-5 pr-8 text-sm text-[#555555] leading-relaxed">
-                        {item.a}
-                      </p>
-                    )}
-                  </div>
+                  <RevealCard
+                    key={item.q}
+                    direction="up"
+                    delayMs={idx * 80}
+                    className="h-auto"
+                  >
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(isOpen ? null : idx)}
+                        aria-expanded={isOpen}
+                        className="w-full py-5 flex items-center justify-between gap-4 text-left group"
+                      >
+                        <span className="text-sm sm:text-base font-semibold text-[#111111] group-hover:text-[#555555] transition-colors">
+                          {item.q}
+                        </span>
+                        <ChevronDown
+                          className={`w-5 h-5 text-[#111111] shrink-0 transition-transform duration-250 ${
+                            isOpen ? 'rotate-180' : ''
+                          }`}
+                          strokeWidth={1.6}
+                        />
+                      </button>
+                      {isOpen && (
+                        <p className="pb-5 pr-8 text-sm text-[#555555] leading-relaxed">
+                          {item.a}
+                        </p>
+                      )}
+                    </div>
+                  </RevealCard>
                 );
               })}
             </div>
@@ -490,18 +521,20 @@ export function HomeView({
       <InstagramSection dict={dict} />
 
       {/* 8. 105.Store Dark Monochrome Consultation Inquiry Band */}
-      <section className="bg-[#0B0B0B] text-white py-14 sm:py-16 border-t border-white/12">
+      <section className="bg-[#0B0B0B] text-white py-14 sm:py-16 border-t border-white/12 overflow-x-clip">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-5 space-y-3">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight">
-              {dict.home.consultTitle}
-            </h2>
-            <p className="text-sm text-[#A8A8A8] leading-relaxed">
-              {dict.home.consultSubtitle}
-            </p>
-          </div>
+          <RevealCard direction="up" delayMs={0} className="lg:col-span-5 h-auto">
+            <div className="space-y-3">
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight">
+                {dict.home.consultTitle}
+              </h2>
+              <p className="text-sm text-[#A8A8A8] leading-relaxed">
+                {dict.home.consultSubtitle}
+              </p>
+            </div>
+          </RevealCard>
 
-          <div className="lg:col-span-7">
+          <RevealCard direction="up" delayMs={120} className="lg:col-span-7 h-auto">
             {consultSent ? (
               <div className="inline-flex items-center gap-3 px-6 py-4 rounded-full bg-[#1C1C1C] border border-white/25 text-sm font-semibold text-white">
                 <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
@@ -519,6 +552,7 @@ export function HomeView({
                     id="consult-name"
                     name="consultName"
                     type="text"
+                    autoComplete="name"
                     value={consultName}
                     onChange={(e) => setConsultName(e.target.value)}
                     placeholder={dict.home.consultPlaceholderName}
@@ -529,6 +563,7 @@ export function HomeView({
                     id="consult-contact"
                     name="consultContact"
                     type="text"
+                    autoComplete="email"
                     value={consultContact}
                     onChange={(e) => setConsultContact(e.target.value)}
                     placeholder={dict.home.consultPlaceholderContact}
@@ -556,7 +591,7 @@ export function HomeView({
                 </div>
               </form>
             )}
-          </div>
+          </RevealCard>
         </div>
       </section>
     </>

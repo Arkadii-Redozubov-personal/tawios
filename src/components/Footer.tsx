@@ -88,7 +88,7 @@ export function Footer({ locale, dict }: FooterProps) {
               </li>
               <li>
                 <Link href={`/${locale}/about`} className="hover:text-white transition-colors">
-                  {dict.nav.about}
+                  {dict.topBar.about}
                 </Link>
               </li>
               <li>

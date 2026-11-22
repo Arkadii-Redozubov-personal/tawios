@@ -8,6 +8,7 @@ import { resolveTranslation, type Dictionary } from '@/i18n';
 import type { Locale } from '@/lib/types';
 import { useStore } from '@/components/StoreProvider';
 import { PriceDisplay } from '@/components/PriceDisplay';
+import { RevealCard } from '@/components/RevealCard';
 
 export function WishlistView({
   locale,
@@ -84,17 +85,21 @@ export function WishlistView({
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {resolvedWishlist.map(({ entry, product, variant }) => {
+            {resolvedWishlist.map(({ entry, product, variant }, idx) => {
               const name = resolveTranslation(product.name, locale);
               const colorName = resolveTranslation(variant.colorName, locale);
               const img = variant.images[0];
               const href = `/${locale}/product/${product.slug}?color=${encodeURIComponent(variant.id)}`;
 
               return (
-                <article
+                <RevealCard
                   key={`${entry.productId}-${entry.variantId}`}
-                  className="group flex flex-col"
+                  index={idx}
+                  columns={4}
+                  direction="left"
+                  speed="fast"
                 >
+                  <article className="group flex flex-col h-full">
                   <div className="relative aspect-[4/5] rounded-[10px] overflow-hidden bg-[#F5F5F5]">
                     <Link href={href} className="block w-full h-full relative">
                       {img ? (
@@ -164,6 +169,7 @@ export function WishlistView({
                     </button>
                   </div>
                 </article>
+                </RevealCard>
               );
             })}
           </div>

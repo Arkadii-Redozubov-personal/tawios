@@ -115,46 +115,46 @@ export function ProductGallery({
   return (
     <div className="space-y-3">
       <div className="flex flex-col-reverse lg:flex-row gap-3.5 items-start">
-        {/* Left Vertical Thumbnail Rail (Mauri desktop layout; horizontal strip on mobile) */}
-        {images.length > 1 && (
-          <div
-            className="w-full lg:w-[82px] shrink-0 grid grid-cols-5 lg:grid-cols-1 gap-2.5"
-            role="list"
-            aria-label="Product angles"
-          >
-            {images.map((img, idx) => {
-              const isActive = idx === safeIndex;
-              const thumbAlt =
-                resolveTranslation(img.alt, locale) ||
-                `${productName} angle ${idx + 1}`;
-              return (
-                <button
-                  key={img.id}
-                  type="button"
-                  onClick={() => setActiveIndex(idx)}
-                  aria-label={`${thumbAlt} (${idx + 1})`}
-                  aria-current={isActive ? 'true' : undefined}
-                  className={`relative aspect-[4/5] rounded-[8px] overflow-hidden bg-[#F5F5F5] border transition-all ${
-                    isActive
-                      ? 'border-[#111111] ring-1 ring-[#111111]'
-                      : 'border-[#EAEAEA] opacity-70 hover:opacity-100 hover:border-[#999999]'
-                  }`}
-                >
-                  <Image
-                    src={img.url}
-                    alt={thumbAlt}
-                    fill
-                    sizes="90px"
-                    className="object-cover"
-                  />
-                </button>
-              );
-            })}
-          </div>
-        )}
+        {/* Left Vertical Thumbnail Rail (always present on desktop so main photo width/height never shifts) */}
+        <div
+          className={`${
+            images.length > 1 ? 'grid' : 'hidden lg:grid'
+          } w-full lg:w-[82px] shrink-0 grid-cols-5 lg:grid-cols-1 gap-2.5`}
+          role="list"
+          aria-label="Product angles"
+        >
+          {images.map((img, idx) => {
+            const isActive = idx === safeIndex;
+            const thumbAlt =
+              resolveTranslation(img.alt, locale) ||
+              `${productName} angle ${idx + 1}`;
+            return (
+              <button
+                key={img.id}
+                type="button"
+                onClick={() => setActiveIndex(idx)}
+                aria-label={`${thumbAlt} (${idx + 1})`}
+                aria-current={isActive ? 'true' : undefined}
+                className={`relative aspect-[4/5] rounded-[8px] overflow-hidden bg-[#F5F5F5] border transition-all ${
+                  isActive
+                    ? 'border-[#111111] ring-1 ring-[#111111]'
+                    : 'border-[#EAEAEA] opacity-70 hover:opacity-100 hover:border-[#999999]'
+                }`}
+              >
+                <Image
+                  src={img.url}
+                  alt={thumbAlt}
+                  fill
+                  sizes="90px"
+                  className="object-cover"
+                />
+              </button>
+            );
+          })}
+        </div>
 
-        {/* Main 105.Store Sticky Portrait Image Canvas */}
-        <div className="group relative flex-1 w-full aspect-[4/5] rounded-[12px] bg-[#F5F5F5] border border-[#EFEFEF] overflow-hidden">
+        {/* Main 105.Store Sticky Portrait Image Canvas (fixed geometry — never resizes when accordions toggle) */}
+        <div className="group relative flex-1 min-w-0 w-full aspect-[4/5] rounded-[12px] bg-[#F5F5F5] border border-[#EFEFEF] overflow-hidden">
           <button
             type="button"
             onClick={() => setLightboxOpen(true)}

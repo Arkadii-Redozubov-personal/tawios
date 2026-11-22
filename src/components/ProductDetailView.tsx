@@ -135,6 +135,37 @@ export function ProductDetailView({
     .filter((p) => p.id !== product.id)
     .slice(0, 4);
 
+  // Additional editorial/lifestyle/detail photos across variants for the Description & Lookbook section
+  const additionalEditorialPhotos = (() => {
+    const selectedExtras = variant.images
+      .filter((img, idx) => img.role === 'editorial' || idx > 0)
+      .map((img) => ({
+        media: img,
+        variantId: variant.id,
+        colorLabel: colorName,
+      }));
+
+    const otherVariantExtras = product.variants
+      .filter((v) => v.id !== variant.id)
+      .flatMap((v) => {
+        const vLabel = resolveTranslation(v.colorName, locale);
+        return v.images
+          .filter((img) => img.role === 'editorial')
+          .map((img) => ({
+            media: img,
+            variantId: v.id,
+            colorLabel: vLabel,
+          }));
+      });
+
+    const seen = new Set<string>();
+    return [...selectedExtras, ...otherVariantExtras].filter((entry) => {
+      if (seen.has(entry.media.url)) return false;
+      seen.add(entry.media.url);
+      return true;
+    });
+  })();
+
   const recentlyViewedProducts = recentlyViewed
     .filter((s) => s !== product.slug)
     .map((s) => published.find((p) => p.slug === s))
@@ -225,8 +256,8 @@ export function ProductDetailView({
 
         {/* Main 54 / 46 Hybrid Split (Sticky Left Gallery + Clean Right Buy Box) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
-          {/* Left 7 Cols: Sticky Gallery (Mauri Vertical Thumbs + 105.Store Portrait Frame) */}
-          <div className="lg:col-span-7 lg:sticky lg:top-24">
+          {/* Left 7 Cols: Sticky Gallery (locked column width & aspect ratio — never resizes on accordion open/close) */}
+          <div className="lg:col-span-7 min-w-0 w-full lg:sticky lg:top-24 self-start">
             <ProductGallery
               images={images}
               productName={name}
@@ -238,7 +269,7 @@ export function ProductDetailView({
           </div>
 
           {/* Right 5 Cols: Mauri Clean Hierarchy x 105.Store Swatches & Wishlist */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 min-w-0 w-full space-y-6 [overflow-anchor:none]">
             <div ref={buyBoxRef} className="space-y-6">
               {/* Mauri Top Meta Row: Availability Left | SKU Right */}
               <div className="flex items-center justify-between gap-3 text-xs">
@@ -506,18 +537,102 @@ export function ProductDetailView({
           </div>
         </div>
 
+        {/* Editorial Description & Additional Lifestyle / Detail Photos */}
+        <section className="mt-16 pt-12 border-t border-[#EAEAEA] overflow-x-clip">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <RevealCard
+              direction="up"
+              delayMs={0}
+              className={`${
+                additionalEditorialPhotos.length > 0 ? 'lg:col-span-4' : 'lg:col-span-8'
+              } h-auto space-y-4`}
+            >
+              <div className="space-y-2.5">
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#111111]">
+                  {dict.product.editorialSectionTitle}
+                </h2>
+                <div className="w-9 h-[2px] bg-[#111111]" aria-hidden="true" />
+              </div>
+              <p className="text-sm sm:text-[15px] text-[#555555] leading-[1.72]">
+                {description}
+              </p>
+              {additionalEditorialPhotos.length > 0 && (
+                <p className="text-xs text-[#777777] leading-relaxed">
+                  {dict.product.editorialSectionSubtitle}
+                </p>
+              )}
+            </RevealCard>
+
+            {additionalEditorialPhotos.length > 0 && (
+              <div
+                className={`lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 ${
+                  additionalEditorialPhotos.length >= 3 ? 'xl:grid-cols-3' : ''
+                } gap-4 sm:gap-5`}
+              >
+                {additionalEditorialPhotos.map((item, idx) => {
+                  const angleText = item.media.angleLabel
+                    ? resolveTranslation(item.media.angleLabel, locale)
+                    : '';
+                  return (
+                    <RevealCard
+                      key={`${item.variantId}-${item.media.id}`}
+                      index={idx}
+                      columns={3}
+                      direction="left"
+                      speed="fast"
+                      className="h-auto"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => handleSelectColor(item.variantId)}
+                        className="group w-full text-left block focus-visible:outline-2"
+                      >
+                        <div className="relative aspect-[4/5] rounded-[10px] overflow-hidden bg-[#F5F5F5]">
+                          <Image
+                            src={item.media.url}
+                            alt={resolveTranslation(item.media.alt, locale) || name}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 34vw, 24vw"
+                            className="object-cover tawios-zoom-media tawios-zoom-target"
+                          />
+                        </div>
+                        <div className="pt-2.5 space-y-0.5">
+                          <p className="text-xs font-semibold text-[#111111] leading-snug">
+                            {angleText || item.colorLabel}
+                          </p>
+                          {angleText && (
+                            <p className="text-[11px] text-[#777777] truncate">
+                              {item.colorLabel}
+                            </p>
+                          )}
+                        </div>
+                      </button>
+                    </RevealCard>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Related Models (105.Store short black underline rule + 4-Col Grid) */}
         {relatedProducts.length > 0 && (
-          <section className="mt-20 pt-12 border-t border-[#EAEAEA]">
-            <div className="mb-8 space-y-2.5">
+          <section className="mt-20 pt-12 border-t border-[#EAEAEA] overflow-x-clip">
+            <RevealCard direction="up" delayMs={0} className="h-auto mb-8 space-y-2.5">
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#111111]">
                 {dict.product.relatedTitle}
               </h2>
               <div className="w-9 h-[2px] bg-[#111111]" aria-hidden="true" />
-            </div>
+            </RevealCard>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
               {relatedProducts.map((rel, idx) => (
-                <RevealCard key={rel.id} index={idx} columns={4}>
+                <RevealCard
+                  key={rel.id}
+                  index={idx}
+                  columns={4}
+                  direction="left"
+                  speed="fast"
+                >
                   <ProductCard
                     product={rel}
                     locale={locale}
@@ -531,15 +646,15 @@ export function ProductDetailView({
 
         {/* Recently Viewed (Exact 105.Store 3-Column Compact Horizontal Mini-Cards) */}
         {recentlyViewedProducts.length > 0 && (
-          <section className="mt-16 pt-12 border-t border-[#EAEAEA]">
-            <div className="mb-7 space-y-2.5">
+          <section className="mt-16 pt-12 border-t border-[#EAEAEA] overflow-x-clip">
+            <RevealCard direction="up" delayMs={0} className="h-auto mb-7 space-y-2.5">
               <h2 className="font-display text-2xl font-bold text-[#111111]">
                 {dict.product.recentlyViewedTitle}
               </h2>
               <div className="w-9 h-[2px] bg-[#111111]" aria-hidden="true" />
-            </div>
+            </RevealCard>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {recentlyViewedProducts.map((recent) => {
+              {recentlyViewedProducts.map((recent, idx) => {
                 const firstVar = recent.variants[0];
                 const recentImg = firstVar?.images[0];
                 const recentName = resolveTranslation(recent.name, locale);
@@ -554,39 +669,46 @@ export function ProductDetailView({
                 );
 
                 return (
-                  <Link
+                  <RevealCard
                     key={recent.id}
-                    href={`/${locale}/product/${recent.slug}`}
-                    className="group flex items-center gap-4 p-3 rounded-[10px] bg-[#FAFAFA] hover:bg-[#F2F2F2] border border-[#EFEFEF] transition-colors"
+                    index={idx}
+                    columns={3}
+                    direction="left"
+                    speed="fast"
                   >
-                    <div className="relative w-[84px] h-[100px] rounded-[8px] overflow-hidden bg-white shrink-0">
-                      {recentImg ? (
-                        <Image
-                          src={recentImg.url}
-                          alt={recentName}
-                          fill
-                          sizes="90px"
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <span
-                          className="block w-full h-full"
-                          style={{ backgroundColor: firstVar?.colorHex ?? '#E5E5E5' }}
-                        />
-                      )}
-                    </div>
-                    <div className="min-w-0 space-y-1">
-                      <p className="text-sm font-semibold text-[#111111] group-hover:text-[#555555] line-clamp-2 transition-colors">
-                        {recentName}
-                      </p>
-                      <p className="text-xs text-[#666666] truncate">
-                        {recentColor}
-                      </p>
-                      <p className="text-sm font-bold text-[#111111] pt-1 tabular-nums">
-                        {recentPrice.formatted}
-                      </p>
-                    </div>
-                  </Link>
+                    <Link
+                      href={`/${locale}/product/${recent.slug}`}
+                      className="group flex items-center gap-4 p-3 rounded-[10px] bg-[#FAFAFA] hover:bg-[#F2F2F2] border border-[#EFEFEF] transition-colors h-full"
+                    >
+                      <div className="relative w-[84px] h-[100px] rounded-[8px] overflow-hidden bg-white shrink-0">
+                        {recentImg ? (
+                          <Image
+                            src={recentImg.url}
+                            alt={recentName}
+                            fill
+                            sizes="90px"
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <span
+                            className="block w-full h-full"
+                            style={{ backgroundColor: firstVar?.colorHex ?? '#E5E5E5' }}
+                          />
+                        )}
+                      </div>
+                      <div className="min-w-0 space-y-1">
+                        <p className="text-sm font-semibold text-[#111111] group-hover:text-[#555555] line-clamp-2 transition-colors">
+                          {recentName}
+                        </p>
+                        <p className="text-xs text-[#666666] truncate">
+                          {recentColor}
+                        </p>
+                        <p className="text-sm font-bold text-[#111111] pt-1 tabular-nums">
+                          {recentPrice.formatted}
+                        </p>
+                      </div>
+                    </Link>
+                  </RevealCard>
                 );
               })}
             </div>
@@ -620,6 +742,8 @@ export function ProductDetailView({
 
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <select
+                id="sticky-variant-select"
+                name="stickyVariant"
                 aria-label={dict.product.colorSelectLabel}
                 value={variant.id}
                 onChange={(e) => handleSelectColor(e.target.value)}

@@ -25,6 +25,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
   color: var(--ink-primary);
   background-color: var(--bg-canvas);
 }
@@ -76,6 +77,53 @@ a {
 
 .group:hover .tawios-zoom-target {
   transform: scale(1.09);
+}
+
+/* Subtle hollow outline display watermark inspired by 105.Store editorial About page */
+.tawios-outline-watermark {
+  color: transparent;
+  -webkit-text-stroke: 1px #ECECEC;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Smooth GPU-accelerated scroll reveal transitions */
+.tawios-reveal {
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.tawios-reveal-fast {
+  transition:
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.tawios-reveal-hidden-left {
+  opacity: 0;
+  transform: translate3d(-28px, 14px, 0);
+}
+
+.tawios-reveal-fast.tawios-reveal-hidden-left {
+  transform: translate3d(-18px, 10px, 0);
+}
+
+.tawios-reveal-hidden-up {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+
+.tawios-reveal-hidden-right {
+  opacity: 0;
+  transform: translate3d(28px, 14px, 0);
+}
+
+.tawios-reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Heart like micro-pop */

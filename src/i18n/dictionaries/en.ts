@@ -173,6 +173,22 @@ export const en: Dictionary = {
     addedShort: 'Added',
     addToWishlist: 'Save to wishlist',
     removeFromWishlist: 'Remove from wishlist',
+    customOrder: {
+      cardLine1: 'Do not see your ideal bag or shade in stock?',
+      cardLine2: 'WE WILL SEW IT TO ORDER FOR YOU',
+      eyebrow: 'Quality takes a little time —',
+      title: 'Not every model is always in stock — and that is normal',
+      body1:
+        'If your preferred fabric shade or size is not currently ready to ship, we can hand-sew the model specially for you from durable water-resistant textiles.',
+      body2:
+        'We help choose the fabric and hardware finish, and film a personal video of your finished bag before shipping from Poland.',
+      namePlaceholder: 'Name',
+      contactPlaceholder: 'Phone, email, or Instagram',
+      modelPlaceholder: 'Model name or preferred shade',
+      commentPlaceholder: 'Your comment or sizing note (optional)',
+      submit: 'Request custom sewing',
+      success: 'Thank you! Your made-to-order inquiry has been received — we will reply shortly.',
+    },
   },
   product: {
     breadcrumbHome: 'Home',
@@ -219,6 +235,9 @@ export const en: Dictionary = {
     },
     relatedTitle: 'Similar Models',
     recentlyViewedTitle: 'Recently Viewed',
+    editorialSectionTitle: 'Description, Details & Styling',
+    editorialSectionSubtitle:
+      'Additional angles, interior pockets, and lifestyle photographs showing real-world scale.',
   },
   wishlist: {
     title: 'Saved Models',
@@ -345,24 +364,46 @@ export const en: Dictionary = {
     notifySuccess: 'Thank you! We will notify you as soon as workshops open.',
   },
   about: {
-    title: 'About TAWIOS',
+    eyebrow: 'About us —',
+    title: 'TAWIOS',
     subtitle:
-      'An independent handmade textile bag atelier focused on clean silhouettes, cruelty-free fabrics, and calm everyday minimalism.',
+      'Handcrafted textile handbags, backpacks, sling bags, and wallets made in Poland from durable, water-resistant fabrics. Every single piece is unique.',
+    watermarkTop: 'EVERY STITCH.',
+    watermarkBottom: 'YOUR STYLE.',
+    scrollAria: 'Scroll to brand story',
+    bannerManifesto:
+      'Whenever a woman puts on one of my bags and writes back with genuine joy and gratitude, I feel truly happy and inspired to keep sewing for you. Every detail matters.',
+    bannerTitle: 'Your unique bag is closer than it seems',
+    bannerSubtitle: 'from quilted classics to soft everyday slings and backpacks',
+    bannerCta: 'Explore Catalog',
+    storyEyebrow: 'Story & materials —',
     storyHeading: 'Sewn by hand, led by material honesty',
     storyBody1:
-      'Every TAWIOS bag is crafted at the sewing machine from carefully selected non-leather textiles: quilted velvet, brushed suede-feel cloth, tactile bouclé, woven houndstooth, and botanical jacquards.',
+      'Founder Tatiana has been sewing since 2000 and crafting bags and accessories for over 12 years. After relocating from Ukraine to Poland (Puck, Pomerania) in 2022 with a small box of beads packed in her suitcase, she launched TAWIOS and soon returned to her true calling — sewing bespoke handbags, backpacks, belt bags, and wallets.',
     storyBody2:
-      'Every bag is handmade in Poland and shipped worldwide. More than 1,000 happy clients already carry our durable, water-resistant textile pieces every day.',
-    paletteHeading: 'Natural Brand Palette',
-    paletteCaption:
-      'Inspired by natural tourmaline: Mist Blue-Grey (#C3CCD6), Blush Mauve (#D8B3C7), Tourmaline Plum (#A06E83), Olive Moss (#7F7D5E), and Deep Slate Pine (#344E4F).',
-    swatchNames: [
-      'Mist Blue-Grey',
-      'Blush Mauve',
-      'Tourmaline Plum',
-      'Olive Moss',
-      'Deep Slate Pine',
-    ],
+      'TAWIOS bags are sewn from high-grade, durable, water-resistant upholstery fabrics. Soft to the touch yet structured, they hold their shape through all seasons — including winter — and keep a crisp, neat finish for years. From cutting and multi-pocket interiors to riveted metal hardware, Tatiana crafts each piece by hand and takes personal responsibility for every stitch.',
+    storyBody3:
+      'Every order can be tailored personally: we help choose fabrics, shades, gold or silver hardware, and can even adjust dimensions together. Before shipping, Tatiana films a short personal video of the finished piece and packs it carefully in tissue paper and a gift box.',
+    evolutionBody1:
+      'For years clients discovered TAWIOS bags through Instagram @_tawios_ and chose fabric swatches in Direct messages. Now we have launched our online catalog to make browsing silhouettes, shades, and availability effortless.',
+    evolutionBody2:
+      'More than 1,000 satisfied clients already carry TAWIOS bags shipped from Poland worldwide — and every new piece is still made with the same personal attention to detail.',
+    callout1Title: 'Over 1,000 happy clients —',
+    callout1Body:
+      'Handmade in Poland and shipped worldwide, with a personal pre-shipment video of your finished bag.',
+    callout2Title: 'Tailored to each client —',
+    callout2Body:
+      'Personal help choosing shades, water-resistant fabrics, hardware finish, and even custom bag dimensions.',
+    consultEyebrow: 'We will help you choose —',
+    consultTitle: 'Style begins with the right bag. Perhaps yours is already waiting.',
+    consultLead: 'Did not find the exact shade or size?',
+    consultBody:
+      'Write to us — we will help select a durable fabric, hardware tone, or sew a model individually for you.',
+    consultNamePlaceholder: 'Name',
+    consultContactPlaceholder: 'Phone, email, or Instagram',
+    consultCommentPlaceholder: 'Your comment (optional)',
+    consultSubmit: 'Help me choose',
+    consultSuccess: 'Thank you! Your inquiry has been received — Tatiana will reply shortly.',
   },
   contact: {
     title: 'Contact',

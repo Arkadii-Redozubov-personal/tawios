@@ -42,8 +42,14 @@ export function ProductCard({
     product.variants.find((v) => v.id === selectedVariantId) ??
     product.variants[0];
 
-  const primaryImage = activeVariant?.images[0];
-  const secondaryImage = activeVariant?.images[1];
+  // Prefer neutral studio photography on catalog/listing cards; editorial/lifestyle shots belong on the PDP
+  const studioImages =
+    activeVariant?.images.filter((img) => img.role !== 'editorial') ?? [];
+  const cardImages =
+    studioImages.length > 0 ? studioImages : activeVariant?.images ?? [];
+
+  const primaryImage = cardImages[0];
+  const secondaryImage = cardImages[1];
   const name = resolveTranslation(product.name, locale);
   const colorName = activeVariant
     ? resolveTranslation(activeVariant.colorName, locale)

@@ -32,6 +32,8 @@ export interface ProductMedia {
   url: string;
   alt: LocalizedText;
   angleLabel?: LocalizedText;
+  /** 'studio' = neutral backdrop eligible for catalog cards; 'editorial' = lifestyle/model/detail shown on PDP */
+  role?: 'studio' | 'editorial';
   width: number;
   height: number;
 }

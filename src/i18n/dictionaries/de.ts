@@ -173,6 +173,22 @@ export const de: Dictionary = {
     addedShort: 'Hinzugefügt',
     addToWishlist: 'Auf die Merkliste',
     removeFromWishlist: 'Von der Merkliste entfernen',
+    customOrder: {
+      cardLine1: 'Ihr Wunschmodell oder Farbton ist gerade nicht vorrätig?',
+      cardLine2: 'WIR NÄHEN ES GERNE AUF BESTELLUNG',
+      eyebrow: 'Qualität braucht ein wenig Zeit —',
+      title: 'Nicht jedes Modell ist immer auf Lager — und das ist ganz normal',
+      body1:
+        'Wenn Ihr gewünschter Farbton oder Ihre Wunschgröße nicht sofort verfügbar ist, nähen wir das Modell gerne eigens für Sie aus robusten, wasserabweisenden Stoffen.',
+      body2:
+        'Wir beraten zu Stoff und Beschlägen und senden vor dem Versand aus Polen ein persönliches Video Ihrer fertigen Tasche.',
+      namePlaceholder: 'Name',
+      contactPlaceholder: 'Telefon, E-Mail oder Instagram',
+      modelPlaceholder: 'Modellname oder gewünschter Farbton',
+      commentPlaceholder: 'Ihr Kommentar oder Größenwunsch (optional)',
+      submit: 'Anfertigung anfragen',
+      success: 'Vielen Dank! Ihre Anfrage zur Maßanfertigung ist eingegangen — wir melden uns in Kürze.',
+    },
   },
   product: {
     breadcrumbHome: 'Startseite',
@@ -219,6 +235,9 @@ export const de: Dictionary = {
     },
     relatedTitle: 'Ähnliche Modelle',
     recentlyViewedTitle: 'Zuletzt angesehen',
+    editorialSectionTitle: 'Beschreibung, Details & Looks',
+    editorialSectionSubtitle:
+      'Zusätzliche Ansichten, Innenaufteilung und Tragebilder im realistischen Maßstab.',
   },
   wishlist: {
     title: 'Merkliste',
@@ -345,24 +364,46 @@ export const de: Dictionary = {
     notifySuccess: 'Vielen Dank! Wir benachrichtigen Sie rechtzeitig zum Start.',
   },
   about: {
-    title: 'Über TAWIOS',
+    eyebrow: 'Über uns —',
+    title: 'TAWIOS',
     subtitle:
-      'Ein unabhängiges Atelier für handgefertigte Textiltaschen ohne Leder — ruhig im Design, präzise in der Verarbeitung.',
+      'Handgefertigte Textiltaschen, Rucksäcke, Bauchtaschen und Portemonnaies aus Polen — gefertigt aus robusten, wasserabweisenden Stoffen. Jedes Stück ist ein Unikat.',
+    watermarkTop: 'JEDER STICH.',
+    watermarkBottom: 'DEIN STIL.',
+    scrollAria: 'Zur Markengeschichte scrollen',
+    bannerManifesto:
+      'Wenn eine Kundin meine Tasche trägt und mir voller Freude schreibt, fühle ich mich glücklich und inspiriert, weiter für euch zu nähen. Jedes Detail liegt mir am Herzen.',
+    bannerTitle: 'Deine einzigartige Tasche ist näher, als du denkst',
+    bannerSubtitle: 'von gesteppten Klassikern bis zu weichen Slings und Rucksäcken',
+    bannerCta: 'Zum Katalog',
+    storyEyebrow: 'Geschichte & Materialien —',
     storyHeading: 'Handgenäht mit Liebe zu besonderen Stoffen',
     storyBody1:
-      'Jede TAWIOS-Tasche entsteht an der Nähmaschine aus ausgewählten Nicht-Leder-Materialien: gestepptem Samt, weicher Mikro-Wildlederoptik, Bouclé, Hahnentritt-Webstoff und floralem Jacquard.',
+      'Gründerin Tatiana näht seit dem Jahr 2000 und fertigt seit über 12 Jahren Taschen und Accessoires. Nach ihrem Umzug aus der Ukraine nach Polen (Puck, Pommern) im Jahr 2022 packte sie eine kleine Perlendose in ihren Koffer, gründete TAWIOS und kehrte bald zu ihrer größten Leidenschaft zurück: dem handgefertigten Nähen von Taschen, Rucksäcken, Slings und Geldbörsen.',
     storyBody2:
-      'Wir fertigen jede Tasche in Handarbeit in Polen und versenden weltweit. Über 1.000 zufriedene Kundinnen und Kunden tragen bereits unsere robusten, wasserabweisenden Textiltaschen.',
-    paletteHeading: 'Natürliche Markenpalette',
-    paletteCaption:
-      'Inspiriert von natürlichem Turmalin: Nebelblau (#C3CCD6), Puder-Mauve (#D8B3C7), Turmalin-Pflaume (#A06E83), Olivmoos (#7F7D5E) und Tiefes Kieferngrau (#344E4F).',
-    swatchNames: [
-      'Nebelblau',
-      'Puder-Mauve',
-      'Turmalin-Pflaume',
-      'Olivmoos',
-      'Tiefes Kieferngrau',
-    ],
+      'Für TAWIOS-Taschen werden hochwertige, strapazierfähige und wasserabweisende Möbel- und Polsterstoffe verwendet. Sie fühlen sich weich an, behalten gleichzeitig zuverlässig ihre Form, bewähren sich auch im Winter und bleiben lange gepflegt. Vom Zuschnitt über durchdachte Innenfächer bis zu den Metallbeschlägen fertigt Tatiana alles in Handarbeit und übernimmt persönlich die Verantwortung für jeden einzelnen Stich.',
+    storyBody3:
+      'Jede Bestellung lässt sich individuell abstimmen: Wir helfen bei der Auswahl von Stoff, Farbton, gold- oder silberfarbenen Beschlägen und passen auf Wunsch sogar die Maße an. Vor jedem Versand filmt Tatiana ein persönliches Video der fertigen Tasche und verpackt sie liebevoll in Seidenpapier und Geschenkbox.',
+    evolutionBody1:
+      'Viele Jahre lang bestellten Kundinnen ihre TAWIOS-Taschen über Instagram @_tawios_ und wählten Stoffe direkt im Chat aus. Mit diesem Online-Katalog wird das Stöbern nach Modellen und Farbtönen noch komfortabler.',
+    evolutionBody2:
+      'Über 1.000 zufriedene Kundinnen und Kunden weltweit tragen bereits handgefertigte Stücke aus unserer polnischen Werkstatt — und jede neue Tasche entsteht mit derselben Liebe zum Detail.',
+    callout1Title: 'Über 1.000 zufriedene Kunden —',
+    callout1Body:
+      'In Polen handgefertigt und weltweit versendet — inklusive persönlichem Video der fertigen Tasche vor dem Versand.',
+    callout2Title: 'Individuell für jede Kundin —',
+    callout2Body:
+      'Persönliche Beratung zu wasserabweisenden Stoffen, Beschlägen und auf Wunsch individuell angepassten Maßen.',
+    consultEyebrow: 'Wir helfen gerne weiter —',
+    consultTitle: 'Stil beginnt mit der richtigen Tasche. Vielleicht wartet sie schon auf dich.',
+    consultLead: 'Nicht den passenden Farbton oder die richtige Größe gefunden?',
+    consultBody:
+      'Schreib uns — wir helfen bei der Stoff- und Beschlagauswahl oder fertigen dein Wunschmodell individuell an.',
+    consultNamePlaceholder: 'Name',
+    consultContactPlaceholder: 'Telefon, E-Mail oder Instagram',
+    consultCommentPlaceholder: 'Ihr Kommentar (optional)',
+    consultSubmit: 'Hilf mir bei der Wahl',
+    consultSuccess: 'Vielen Dank! Ihre Anfrage ist eingegangen — Tatiana meldet sich in Kürze.',
   },
   contact: {
     title: 'Kontakt',

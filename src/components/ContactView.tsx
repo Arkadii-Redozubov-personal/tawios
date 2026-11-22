@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { ArrowUpRight, CheckCircle2, Instagram, MapPin, Scissors } from 'lucide-react';
 import type { Dictionary } from '@/i18n';
 import { useStore } from '@/components/StoreProvider';
+import { RevealCard } from '@/components/RevealCard';
 
 export function ContactView({ dict }: { dict: Dictionary }) {
   const { storeSettings } = useStore();
@@ -44,9 +45,9 @@ export function ContactView({ dict }: { dict: Dictionary }) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 overflow-x-clip">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-5 space-y-5">
+          <RevealCard direction="left" delayMs={0} className="lg:col-span-5 h-auto space-y-5">
             <a
               href={storeSettings.instagramUrl}
               target="_blank"
@@ -92,9 +93,10 @@ export function ContactView({ dict }: { dict: Dictionary }) {
                 </div>
               </div>
             </div>
-          </div>
+          </RevealCard>
 
-          <div className="lg:col-span-7 rounded-[14px] bg-[#FAFAFA] border border-[#EAEAEA] p-6 sm:p-8 space-y-5">
+          <RevealCard direction="up" delayMs={120} className="lg:col-span-7 h-auto">
+            <div className="rounded-[14px] bg-[#FAFAFA] border border-[#EAEAEA] p-6 sm:p-8 space-y-5">
             <h2 className="font-display text-2xl font-bold text-[#111111]">
               {dict.contact.formTitle}
             </h2>
@@ -122,6 +124,7 @@ export function ContactView({ dict }: { dict: Dictionary }) {
                       id="ct-name"
                       name="name"
                       type="text"
+                      autoComplete="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="w-full px-4 py-2.5 rounded-[10px] border border-[#E0E0E0] bg-white text-sm focus:border-[#111111]"
@@ -138,6 +141,7 @@ export function ContactView({ dict }: { dict: Dictionary }) {
                       id="ct-email"
                       name="email"
                       type="email"
+                      autoComplete="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full px-4 py-2.5 rounded-[10px] border border-[#E0E0E0] bg-white text-sm focus:border-[#111111]"
@@ -170,7 +174,8 @@ export function ContactView({ dict }: { dict: Dictionary }) {
                 </button>
               </form>
             )}
-          </div>
+            </div>
+          </RevealCard>
         </div>
       </div>
     </div>

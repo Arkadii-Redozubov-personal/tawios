@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { CheckCircle2, FileText, Users, Video } from 'lucide-react';
 import type { Dictionary } from '@/i18n';
+import { RevealCard } from '@/components/RevealCard';
 
 export function WorkshopsView({ dict }: { dict: Dictionary }) {
   const [email, setEmail] = useState('');
@@ -69,30 +70,30 @@ export function WorkshopsView({ dict }: { dict: Dictionary }) {
             {dict.workshops.formats.map((fmt, idx) => {
               const Icon = icons[idx] ?? Video;
               return (
-                <div
-                  key={fmt.title}
-                  className="rounded-[12px] bg-[#FAFAFA] border border-[#EAEAEA] p-6 flex flex-col justify-between gap-5"
-                >
-                  <div className="space-y-3">
-                    <div className="w-11 h-11 rounded-full bg-white border border-[#E0E0E0] flex items-center justify-center text-[#111111]">
-                      <Icon className="w-5 h-5" strokeWidth={1.5} />
+                <RevealCard key={fmt.title} index={idx} columns={3} direction="left">
+                  <div className="h-full rounded-[12px] bg-[#FAFAFA] border border-[#EAEAEA] p-6 flex flex-col justify-between gap-5">
+                    <div className="space-y-3">
+                      <div className="w-11 h-11 rounded-full bg-white border border-[#E0E0E0] flex items-center justify-center text-[#111111]">
+                        <Icon className="w-5 h-5" strokeWidth={1.5} />
+                      </div>
+                      <h3 className="font-display text-xl font-bold text-[#111111]">
+                        {fmt.title}
+                      </h3>
+                      <p className="text-sm text-[#555555] leading-relaxed">
+                        {fmt.description}
+                      </p>
                     </div>
-                    <h3 className="font-display text-xl font-bold text-[#111111]">
-                      {fmt.title}
-                    </h3>
-                    <p className="text-sm text-[#555555] leading-relaxed">
-                      {fmt.description}
-                    </p>
+                    <span className="self-start px-3.5 py-1 rounded-full bg-white border border-[#EAEAEA] text-[11px] font-semibold uppercase tracking-[0.12em] text-[#555555]">
+                      {fmt.tag}
+                    </span>
                   </div>
-                  <span className="self-start px-3.5 py-1 rounded-full bg-white border border-[#EAEAEA] text-[11px] font-semibold uppercase tracking-[0.12em] text-[#555555]">
-                    {fmt.tag}
-                  </span>
-                </div>
+                </RevealCard>
               );
             })}
           </div>
         </section>
 
+        <RevealCard direction="up" delayMs={0} className="h-auto">
         <section className="rounded-[14px] bg-[#0B0B0B] text-white p-6 sm:p-10">
           <div className="max-w-2xl space-y-5">
             <div>
@@ -165,6 +166,7 @@ export function WorkshopsView({ dict }: { dict: Dictionary }) {
             )}
           </div>
         </section>
+        </RevealCard>
       </div>
     </div>
   );

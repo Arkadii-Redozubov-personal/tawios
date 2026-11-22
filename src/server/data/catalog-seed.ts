@@ -192,8 +192,28 @@ export const CATALOG_SEED: Product[] = [
         available: true,
         images: [
           {
+            id: 'img-qfb-floral-2',
+            url: '/images/products/quilted-flap-floral-interior.webp',
+            role: 'studio',
+            width: 1598,
+            height: 1599,
+            alt: {
+              uk: 'Внутрішня організація квіткової сумки TAWIOS із відділенням на блискавці',
+              en: 'Open interior view of floral TAWIOS flap bag with zip pocket divider',
+              pl: 'Wnętrze kwiatowej torebki TAWIOS z kieszenią na suwak',
+              de: 'Innenansicht der geblümten TAWIOS-Tasche mit Reißverschlussfach',
+            },
+            angleLabel: {
+              uk: 'Студійний вигляд всередині',
+              en: 'Studio interior layout',
+              pl: 'Wnętrze w studiu',
+              de: 'Studio-Innenansicht',
+            },
+          },
+          {
             id: 'img-qfb-floral-1',
             url: '/images/products/quilted-flap-floral-model.webp',
+            role: 'editorial',
             width: 967,
             height: 1600,
             alt: {
@@ -207,24 +227,6 @@ export const CATALOG_SEED: Product[] = [
               en: 'Scale on model',
               pl: 'Na modelce',
               de: 'Am Modell',
-            },
-          },
-          {
-            id: 'img-qfb-floral-2',
-            url: '/images/products/quilted-flap-floral-interior.webp',
-            width: 1598,
-            height: 1599,
-            alt: {
-              uk: 'Внутрішня організація квіткової сумки TAWIOS із відділенням на блискавці',
-              en: 'Open interior view of floral TAWIOS flap bag with zip pocket divider',
-              pl: 'Wnętrze kwiatowej torebki TAWIOS z kieszenią na suwak',
-              de: 'Innenansicht der geblümten TAWIOS-Tasche mit Reißverschlussfach',
-            },
-            angleLabel: {
-              uk: 'Вигляд всередині',
-              en: 'Interior layout',
-              pl: 'Wnętrze',
-              de: 'Innenansicht',
             },
           },
         ],
@@ -365,6 +367,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-ssb-slv-2',
             url: '/images/products/suede-sling-silver-editorial.webp',
+            role: 'editorial',
             width: 1200,
             height: 1600,
             alt: {
@@ -415,6 +418,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-ssb-ter-2',
             url: '/images/products/suede-sling-terracotta-worn.webp',
+            role: 'editorial',
             width: 900,
             height: 1600,
             alt: {
@@ -582,6 +586,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-rfb-esp-1',
             url: '/images/products/ring-backpack-espresso-back.webp',
+            role: 'editorial',
             width: 901,
             height: 1600,
             alt: {
@@ -600,6 +605,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-rfb-esp-2',
             url: '/images/products/ring-backpack-espresso-hand.webp',
+            role: 'editorial',
             width: 901,
             height: 1600,
             alt: {
@@ -735,6 +741,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-rcb-red-1',
             url: '/images/products/round-bag-crimson-studio.webp',
+            role: 'studio',
             width: 1558,
             height: 1600,
             alt: {
@@ -753,6 +760,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-rcb-red-2',
             url: '/images/products/round-bag-crimson-closeup.webp',
+            role: 'editorial',
             width: 1600,
             height: 1600,
             alt: {
@@ -771,6 +779,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-rcb-red-3',
             url: '/images/products/round-bag-crimson-waist.webp',
+            role: 'editorial',
             width: 566,
             height: 566,
             alt: {
@@ -789,6 +798,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-rcb-red-4',
             url: '/images/products/round-bag-crimson-full.webp',
+            role: 'editorial',
             width: 1200,
             height: 1600,
             alt: {
@@ -1057,6 +1067,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-dbp-snd-1',
             url: '/images/products/dome-backpack-sand-seated.webp',
+            role: 'editorial',
             width: 1600,
             height: 1600,
             alt: {
@@ -1075,6 +1086,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-dbp-snd-2',
             url: '/images/products/dome-backpack-sand-shoulder.webp',
+            role: 'editorial',
             width: 1057,
             height: 1600,
             alt: {
@@ -1093,6 +1105,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-dbp-snd-3',
             url: '/images/products/dome-backpack-sand-walk.webp',
+            role: 'editorial',
             width: 1600,
             height: 1600,
             alt: {
@@ -1111,6 +1124,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-dbp-snd-4',
             url: '/images/products/dome-backpack-sand-wallet.webp',
+            role: 'editorial',
             width: 1080,
             height: 1080,
             alt: {
@@ -1136,7 +1150,8 @@ export const CATALOG_SEED: Product[] = [
     category: 'flap-shoulder',
     basePricePln: 380,
     isDemoPrice: true,
-    status: 'published',
+    // Kept as draft in public catalog until a neutral-background studio card photo is added
+    status: 'draft',
     name: {
       uk: 'Сумка-півмісяць із драпованою ручкою',
       en: 'Scrunchie-Strap Crescent Hobo',
@@ -1310,7 +1325,8 @@ export const CATALOG_SEED: Product[] = [
     category: 'sling-belt',
     basePricePln: 330,
     isDemoPrice: true,
-    status: 'published',
+    // Kept as draft in public catalog until a neutral-background studio card photo is added
+    status: 'draft',
     name: {
       uk: 'Структурована поясна сумка-слінг',
       en: 'Structured Belt & Crossbody Bag',
@@ -1692,6 +1708,7 @@ export const CATALOG_SEED: Product[] = [
           {
             id: 'img-bzw-2',
             url: '/images/products/wallet-rose-atelier.webp',
+            role: 'editorial',
             width: 960,
             height: 1280,
             alt: {

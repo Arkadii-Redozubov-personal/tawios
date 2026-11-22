@@ -173,6 +173,22 @@ export const pl: Dictionary = {
     addedShort: 'Dodano',
     addToWishlist: 'Dodaj do ulubionych',
     removeFromWishlist: 'Usuń z ulubionych',
+    customOrder: {
+      cardLine1: 'Brakuje wymarzonego modelu lub odcienia?',
+      cardLine2: 'USZYJEMY GO DLA CIEBIE NA ZAMÓWIENIE',
+      eyebrow: 'Jakość wymaga chwili czasu —',
+      title: 'Nie wszystkie modele są zawsze od ręki — i to jest normalne',
+      body1:
+        'Jeśli wybranego koloru lub rozmiaru nie ma wśród gotowych torebek, możemy uszyć model specjalnie dla Ciebie z wytrzymałych, wodoodpornych tkanin.',
+      body2:
+        'Dobierzemy tkaninę i kolor okuć, a przed wysyłką z Polski nagramy osobiste wideo Twojej gotowej torebki.',
+      namePlaceholder: 'Imię',
+      contactPlaceholder: 'Telefon, e-mail lub Instagram',
+      modelPlaceholder: 'Nazwa modelu lub wybrany kolor',
+      commentPlaceholder: 'Twój komentarz lub uwagi do rozmiaru (opcjonalnie)',
+      submit: 'Zamów uszycie',
+      success: 'Dziękujemy! Zgłoszenie na szycie indywidualne dotarło — wkrótce się odezwiemy.',
+    },
   },
   product: {
     breadcrumbHome: 'Główna',
@@ -219,6 +235,9 @@ export const pl: Dictionary = {
     },
     relatedTitle: 'Podobne modele',
     recentlyViewedTitle: 'Ostatnio oglądane',
+    editorialSectionTitle: 'Opis, detale i stylizacje',
+    editorialSectionSubtitle:
+      'Dodatkowe ujęcia, organizacja wnętrza oraz zdjęcia modelu w codziennych stylizacjach.',
   },
   wishlist: {
     title: 'Ulubione',
@@ -345,24 +364,46 @@ export const pl: Dictionary = {
     notifySuccess: 'Dziękujemy! Damy znać, gdy warsztaty wystartują.',
   },
   about: {
-    title: 'O marce TAWIOS',
+    eyebrow: 'O nas —',
+    title: 'TAWIOS',
     subtitle:
-      'Autorska pracownia torebek tekstylnych szytych bez użycia skóry — z myślą o prostocie, jakości szwu i wyrazistych fakturach.',
+      'Ręcznie robione torebki, plecaki, nerki i portfeliki szyte w Polsce z wytrzymałych i wodoodpornych tkanin. Każdy wyrób jest unikatowy.',
+    watermarkTop: 'KAŻDY ŚCIEG.',
+    watermarkBottom: 'TWÓJ STYL.',
+    scrollAria: 'Przejdź do historii marki',
+    bannerManifesto:
+      'Kiedy dziewczyna zakłada moją torebkę i pisze mi radosne słowa wdzięczności — czuję się szczęśliwa i gotowa kontynuować szycie dla Was. Podoba mi się każdy detal.',
+    bannerTitle: 'Twoja unikatowa torebka jest bliżej, niż myślisz',
+    bannerSubtitle: 'od pikowanej klasyki po miękkie codzienne nerki i plecaki',
+    bannerCta: 'Przejdź do katalogu',
+    storyEyebrow: 'Historia i materiały —',
     storyHeading: 'Ręczne wykonanie i tekstylia z charakterem',
     storyBody1:
-      'Każdy model TAWIOS powstaje ręcznie przy użyciu starannie dobranych tkanin nieskórzanych: pikowanego weluru, miękkiego mikrozamszu, tkaniny bouclé, pepitki oraz kwiatowych żakardów.',
+      'Założycielka marki Tatiana szyje od 2000 roku, a torebki i akcesoria tworzy już od ponad 12 lat. Po przeprowadzce z Ukrainy do Polski (Puck, Pomorze) w 2022 roku przywiozła w walizce pudełko z koralikami, założyła markę TAWIOS i wkrótce wróciła do swojej największej pasji — ręcznego szycia torebek, plecaków, nerek i portfelików.',
     storyBody2:
-      'Produkujemy ręcznie w Polsce i wysyłamy na cały świat. Ponad 1000 zadowolonych klientów zaufało naszym mocnym, wodoodpornym torebkom tekstylnym.',
-    paletteHeading: 'Naturalna paleta marki',
-    paletteCaption:
-      'Inspirowana naturalnym turmalinem: mglisty błękit (#C3CCD6), pudrowy róż (#D8B3C7), śliwka (#A06E83), oliwkowy mech (#7F7D5E) oraz głęboka sosnowa szarość (#344E4F).',
-    swatchNames: [
-      'Mglisty błękit',
-      'Pudrowy róż',
-      'Turmalinowa śliwka',
-      'Oliwkowy mech',
-      'Głęboki sosnowy',
-    ],
+      'W pracowni TAWIOS powstają modele z najwyższej jakości, wytrzymałych i wodoodpornych tkanin meblowych i tapicerskich. Są miękkie w dotyku, a jednocześnie zachowują swój kształt, sprawdzają się również zimą i na długo utrzymują schludny wygląd. Tatiana wykonuje każdy etap ręcznie — od kroju i licznych kieszonek po metalowe okucia — i osobiście odpowiada za jakość każdego ściegu.',
+    storyBody3:
+      'Każdy model możemy dopasować indywidualnie: pomagamy dobrać tkaninę, kolor, złote lub srebrne okucia, a nawet wspólnie zmienić rozmiar. Przed wysłaniem Tatiana nagrywa osobiste wideo gotowego wyrobu i starannie pakuje go w bibułkę i pudełko prezentowe.',
+    evolutionBody1:
+      'Przez lata klientki zamawiały torebki TAWIOS na Instagramie @_tawios_, wybierając próbki tkanin w wiadomościach. Teraz stworzyliśmy katalog online, aby wygodnie przeglądać wszystkie modele i kolory.',
+    evolutionBody2:
+      'Ponad 1000 zadowolonych klientów nosi już wyroby tworzone w Polsce i wysyłane na cały świat — a każda kolejna torebka nadal powstaje z tą samą dbałością o detal.',
+    callout1Title: 'Ponad 1000 zadowolonych klientów —',
+    callout1Body:
+      'Tworzymy ręcznie w Polsce i wysyłamy na cały świat, nagrywając osobiste wideo gotowej torebki przed każdą wysyłką.',
+    callout2Title: 'Indywidualne szycie dla każdej —',
+    callout2Body:
+      'Pomożemy dobrać odcień wodoodpornej tkaniny, kolor okuć, a także wspólnie dopasujemy wymiary modelu.',
+    consultEyebrow: 'Rozwiążemy Twoje pytania —',
+    consultTitle: 'Styl zaczyna się od właściwej torebki. Może właśnie na Ciebie czeka.',
+    consultLead: 'Nie znalazłaś idealnego odcienia lub rozmiaru?',
+    consultBody:
+      'Napisz do nas — dobierzemy tkaninę, okucia lub uszyjemy model specjalnie dla Ciebie.',
+    consultNamePlaceholder: 'Imię',
+    consultContactPlaceholder: 'Telefon, e-mail lub Instagram',
+    consultCommentPlaceholder: 'Twój komentarz (opcjonalnie)',
+    consultSubmit: 'Pomóż mi wybrać',
+    consultSuccess: 'Dziękujemy! Wiadomość dotarła — Tatiana wkrótce się z Tobą skontaktuje.',
   },
   contact: {
     title: 'Kontakt',

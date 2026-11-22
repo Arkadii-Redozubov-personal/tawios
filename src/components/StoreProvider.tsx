@@ -22,7 +22,8 @@ import type {
   WishlistItem,
 } from '@/lib/types';
 
-const STORAGE_KEY = 'tawios_demo_store_v1';
+const STORAGE_KEY = 'tawios_demo_store_v2';
+const LEGACY_STORAGE_KEY = 'tawios_demo_store_v1';
 
 const EMPTY_PROFILE: DemoProfile = {
   fullName: '',
@@ -152,6 +153,24 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         }
         if (typeof parsed.bannerDismissed === 'boolean') {
           setBannerDismissed(parsed.bannerDismissed);
+        }
+      } else {
+        // Carry over user preferences/bag from v1 while refreshing to updated neutral-studio catalog seed
+        const legacyRaw = window.localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (legacyRaw) {
+          const legacy = JSON.parse(legacyRaw) as PersistedState;
+          if (typeof legacy.activeCurrencyCode === 'string') {
+            setActiveCurrencyCodeState(legacy.activeCurrencyCode);
+          }
+          if (Array.isArray(legacy.cart)) setCart(legacy.cart);
+          if (Array.isArray(legacy.wishlist)) setWishlist(legacy.wishlist);
+          if (Array.isArray(legacy.recentlyViewed)) {
+            setRecentlyViewed(legacy.recentlyViewed.slice(0, 8));
+          }
+          if (legacy.demoProfile && typeof legacy.demoProfile === 'object') {
+            setDemoProfile({ ...EMPTY_PROFILE, ...legacy.demoProfile });
+          }
+          if (Array.isArray(legacy.orders)) setOrders(legacy.orders);
         }
       }
     } catch {
