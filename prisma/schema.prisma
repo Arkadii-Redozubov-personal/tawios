@@ -1,0 +1,218 @@
+// Target PostgreSQL Schema for TAWIOS Full-Stack Production Architecture
+// (Technical Specification v1.2, Section 13.2)
+// Note: Current deliverable runs in self-contained DEMO mode with curated seed data
+// and local interactive CMS preview; production connects these models via Prisma Migrate.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Locale {
+  uk
+  en
+  pl
+  de
+}
+
+enum PublishStatus {
+  draft
+  published
+  archived
+}
+
+enum OrderStatus {
+  draft
+  pending_payment
+  paid
+  payment_failed
+  new_to_process
+  in_progress
+  shipped
+  completed
+  cancelled_refunded
+}
+
+model Product {
+  id              String                  @id @default(cuid())
+  slug            String                  @unique
+  category        String
+  basePricePln    Int
+  status          PublishStatus           @default(published)
+  featuredOrder   Int?
+  silhouetteJson  Json?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  translations    ProductTranslation[]
+  characteristics ProductCharacteristic[]
+  variants        ProductVariant[]
+  media           ProductMedia[]
+  mannequinAssets MannequinAsset[]
+
+  @@index([status, category])
+}
+
+model ProductTranslation {
+  id               String  @id @default(cuid())
+  productId        String
+  locale           Locale
+  name             String
+  shortDescription String
+  description      String
+  seoTitle         String?
+  seoDescription   String?
+  product          Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+}
+
+model ProductCharacteristic {
+  id        String  @id @default(cuid())
+  productId String
+  sortOrder Int     @default(0)
+  labelJson Json
+  valueJson Json
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder])
+}
+
+model ProductVariant {
+  id            String         @id @default(cuid())
+  productId     String
+  sku           String         @unique
+  colorHex      String
+  colorNameJson Json
+  available     Boolean        @default(true)
+  madeToOrder   Boolean        @default(false)
+  sortOrder     Int            @default(0)
+  product       Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  media         ProductMedia[]
+
+  @@index([productId])
+}
+
+model ProductMedia {
+  id        String          @id @default(cuid())
+  productId String
+  variantId String?
+  fileUrl   String
+  altJson   Json
+  isPrimary Boolean         @default(false)
+  sortOrder Int             @default(0)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  @@index([productId, variantId, sortOrder])
+}
+
+model Order {
+  id                 String              @id @default(cuid())
+  orderNumber        String              @unique
+  orderMode          String
+  customerName       String
+  customerEmail      String
+  customerPhone      String
+  country            String?
+  city               String?
+  postalCode         String?
+  address            String?
+  comment            String?
+  baseTotalPln       Int
+  settlementCurrency String              @default("PLN")
+  displayCurrency    String              @default("PLN")
+  displayTotal       Decimal             @db.Decimal(12, 2)
+  status             OrderStatus         @default(new_to_process)
+  paymentStatus      String              @default("unpaid")
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  items              OrderItemSnapshot[]
+  paymentEvents      PaymentEvent[]
+
+  @@index([status, createdAt])
+}
+
+model OrderItemSnapshot {
+  id                  String @id @default(cuid())
+  orderId             String
+  productId           String
+  variantId           String
+  sku                 String
+  productNameSnapshot String
+  colorNameSnapshot   String
+  unitPricePln        Int
+  quantity            Int
+  lineTotalPln        Int
+  order               Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+model StoreCurrencySetting {
+  code         String   @id
+  name         String
+  symbol       String
+  rateFromPln  Decimal  @db.Decimal(12, 6)
+  rounding     String   @default("whole")
+  symbolPos    String   @default("suffix")
+  isBase       Boolean  @default(false)
+  isSettlement Boolean  @default(false)
+  active       Boolean  @default(true)
+  updatedAt    DateTime @updatedAt
+}
+
+model PaymentEvent {
+  id                String   @id @default(cuid())
+  orderId           String
+  externalEventId   String   @unique
+  provider          String
+  providerReference String?
+  displayCurrency   String
+  settlementAmount  Int
+  settlementCur     String   @default("PLN")
+  eventType         String
+  status            String
+  createdAt         DateTime @default(now())
+  order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+model Workshop {
+  id           String                @id @default(cuid())
+  slug         String                @unique
+  format       String
+  status       PublishStatus         @default(draft)
+  basePricePln Int?
+  createdAt    DateTime              @default(now())
+  translations WorkshopTranslation[]
+}
+
+model WorkshopTranslation {
+  id          String   @id @default(cuid())
+  workshopId  String
+  locale      Locale
+  title       String
+  summary     String
+  description String
+  workshop    Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+
+  @@unique([workshopId, locale])
+}
+
+model MannequinAsset {
+  id         String  @id @default(cuid())
+  productId  String
+  variantId  String?
+  carryStyle String
+  assetUrl   String
+  scaleRatio Float?
+  product    Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, variantId])
+}
+
