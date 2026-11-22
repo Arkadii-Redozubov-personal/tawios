@@ -24,13 +24,13 @@ const HERO_CAMPAIGN_LOOKS = [
     slug: 'quilted-flap-bag',
     image: '/images/hero/hero-campaign-1.webp',
     alt: 'Editorial fashion portrait with TAWIOS black quilted velvet flap bag and gold turn-lock clasp',
-    objectPosition: 'object-[78%_18%] sm:object-[72%_18%] lg:object-center',
+    objectPosition: 'object-[78%_top] sm:object-[72%_top] lg:object-[center_top]',
   },
   {
-    slug: 'suede-sling-bag',
+    slug: 'quilted-flap-plum',
     image: '/images/hero/hero-campaign-2.webp',
-    alt: 'Editorial lookbook featuring TAWIOS mist silver suede-feel crossbody sling bag over dark linen blazer',
-    objectPosition: 'object-[76%_center] sm:object-[70%_center] lg:object-center',
+    alt: 'Editorial fashion portrait with TAWIOS deep plum quilted velvet flap bag and cream turtleneck',
+    objectPosition: 'object-[78%_top] sm:object-[72%_top] lg:object-[center_top]',
   },
   {
     slug: 'boucle-sling-bag',
