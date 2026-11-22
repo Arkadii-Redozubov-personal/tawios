@@ -18,25 +18,25 @@ import { ProductCard } from '@/components/ProductCard';
 import { InstagramSection } from '@/components/InstagramSection';
 import { RevealCard } from '@/components/RevealCard';
 
-// Single full-bleed 16:9 editorial campaign photograph per slide with smooth auto-crossfade
+// Single full-bleed editorial image per slide with smooth auto-crossfade
 const HERO_CAMPAIGN_LOOKS = [
   {
     slug: 'quilted-flap-bag',
-    image: '/images/hero/hero-campaign-1.webp',
-    alt: 'Editorial fashion portrait with TAWIOS black quilted velvet flap bag and gold turn-lock clasp',
-    objectPosition: 'object-[78%_top] sm:object-[72%_top] lg:object-[center_top]',
+    image: '/images/products/quilted-flap-black-studio.webp',
+    alt: 'TAWIOS midnight black quilted flap bag with gold clasp',
+    objectPosition: 'object-[68%_center] sm:object-center',
   },
   {
-    slug: 'quilted-flap-plum',
-    image: '/images/hero/hero-campaign-2.webp',
-    alt: 'Editorial fashion portrait with TAWIOS deep plum quilted velvet flap bag and cream turtleneck',
-    objectPosition: 'object-[78%_top] sm:object-[72%_top] lg:object-[center_top]',
+    slug: 'suede-sling-bag',
+    image: '/images/products/suede-sling-silver-editorial.webp',
+    alt: 'TAWIOS mist silver suede-feel sling bag styled on dark charcoal armchair',
+    objectPosition: 'object-center',
   },
   {
-    slug: 'boucle-sling-bag',
-    image: '/images/hero/hero-campaign-3.webp',
-    alt: 'Haute-atelier monochrome macro of TAWIOS curly pearl-grey bouclé textile and double silver metal zippers',
-    objectPosition: 'object-[64%_center] sm:object-center',
+    slug: 'dome-backpack-sand',
+    image: '/images/products/dome-backpack-sand-seated.webp',
+    alt: 'TAWIOS sand textile dome backpack lifestyle editorial',
+    objectPosition: 'object-[center_35%]',
   },
 ];
 
@@ -163,11 +163,11 @@ export function HomeView({
           {/* Clean monochrome atmospheric scrims */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 z-[2] bg-gradient-to-t from-black/72 via-black/22 to-black/5"
+            className="absolute inset-0 z-[2] bg-gradient-to-t from-black/78 via-black/30 to-black/10"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 z-[2] bg-gradient-to-r from-black/58 via-black/18 to-transparent"
+            className="absolute inset-0 z-[2] bg-gradient-to-r from-black/68 via-black/28 to-transparent"
           />
         </div>
 
