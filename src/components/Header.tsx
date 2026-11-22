@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -101,6 +102,22 @@ export function Header({ locale, dict }: HeaderProps) {
     };
   }, []);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setMobileLangOpen(false);
+    setCurrOpen(false);
+    setSearchOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [mobileMenuOpen]);
+
   function switchLocale(target: Locale) {
     setLangPinned(false);
     setLangHover(false);
@@ -150,8 +167,14 @@ export function Header({ locale, dict }: HeaderProps) {
         <div className="flex items-center justify-start gap-1.5 sm:gap-4 min-w-0">
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(true)}
+            onClick={() => {
+              setMobileMenuOpen(true);
+              setMobileLangOpen(false);
+              setCurrOpen(false);
+              setSearchOpen(false);
+            }}
             aria-label={dict.nav.menuOpen}
+            aria-expanded={mobileMenuOpen}
             className="lg:hidden p-1.5 -ml-1 rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors shrink-0"
           >
             <Menu className="w-5 h-5" strokeWidth={1.6} />
@@ -460,144 +483,156 @@ export function Header({ locale, dict }: HeaderProps) {
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer with Frosted Blur Overlay (zero admin link) */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-50 lg:hidden flex"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile menu"
-        >
+      {/* Mobile Navigation Drawer portaled to document.body so header backdrop-blur never traps fixed positioning */}
+      {mobileMenuOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className="fixed inset-0 bg-black/45 backdrop-blur-[6px]"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className="relative w-80 max-w-[86vw] bg-white h-full shadow-2xl flex flex-col justify-between p-6 z-10 overflow-y-auto">
-            <div className="space-y-5">
-              <div className="flex items-center justify-between pb-4 border-b border-[#EAEAEA]">
-                <TawiosLogo className="text-xl tracking-[0.2em]" />
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label={dict.nav.menuClose}
-                  className="p-2 -mr-2 rounded-full text-[#111111] hover:bg-[#F4F4F4]"
-                >
-                  <X className="w-5 h-5" strokeWidth={1.6} />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <Link
-                  href={`/${locale}/account`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-[#F4F4F4] hover:bg-[#EAEAEA] text-xs font-semibold text-[#111111] transition-colors"
-                >
-                  <User className="w-3.5 h-3.5 text-[#111111]" strokeWidth={1.7} />
-                  <span>{dict.nav.account}</span>
-                </Link>
-                <Link
-                  href={`/${locale}/wishlist`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-[#F4F4F4] hover:bg-[#EAEAEA] text-xs font-semibold text-[#111111] transition-colors"
-                >
-                  <Heart className="w-3.5 h-3.5 text-[#111111]" strokeWidth={1.7} />
-                  <span>
-                    {dict.nav.wishlist}
-                    {wishlistCount > 0 ? ` (${wishlistCount})` : ''}
-                  </span>
-                </Link>
-              </div>
-
-              <nav className="flex flex-col divide-y divide-[#F0F0F0]">
-                <Link
-                  href={`/${locale}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#111111] hover:text-[#666666] transition-colors"
-                >
-                  {dict.nav.home}
-                </Link>
-                {mobileNavItems.map((item) => (
+            className="fixed inset-0 z-[90] lg:hidden flex"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile menu"
+          >
+            <div
+              className="fixed inset-0 bg-black/50 backdrop-blur-[4px]"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <div className="relative w-80 max-w-[86vw] bg-white h-[100dvh] shadow-2xl flex flex-col justify-between p-6 z-10 overflow-y-auto">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between pb-4 border-b border-[#EAEAEA]">
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    href={`/${locale}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label={dict.nav.homeAria}
+                  >
+                    <TawiosLogo className="text-xl tracking-[0.2em]" />
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label={dict.nav.menuClose}
+                    className="p-2 -mr-2 rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors"
+                  >
+                    <X className="w-5 h-5" strokeWidth={1.6} />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <Link
+                    href={`/${locale}/account`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-[#F4F4F4] hover:bg-[#EAEAEA] text-xs font-semibold text-[#111111] transition-colors"
+                  >
+                    <User className="w-3.5 h-3.5 text-[#111111]" strokeWidth={1.7} />
+                    <span>{dict.nav.account}</span>
+                  </Link>
+                  <Link
+                    href={`/${locale}/wishlist`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-[#F4F4F4] hover:bg-[#EAEAEA] text-xs font-semibold text-[#111111] transition-colors"
+                  >
+                    <Heart className="w-3.5 h-3.5 text-[#111111]" strokeWidth={1.7} />
+                    <span>
+                      {dict.nav.wishlist}
+                      {wishlistCount > 0 ? ` (${wishlistCount})` : ''}
+                    </span>
+                  </Link>
+                </div>
+
+                <nav
+                  aria-label="Mobile navigation"
+                  className="flex flex-col divide-y divide-[#F0F0F0]"
+                >
+                  <Link
+                    href={`/${locale}`}
                     onClick={() => setMobileMenuOpen(false)}
                     className="py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#111111] hover:text-[#666666] transition-colors"
                   >
-                    {item.label}
+                    {dict.nav.home}
                   </Link>
-                ))}
-                <Link
-                  href={`/${locale}/about`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-3.5 text-xs font-medium text-[#666666] hover:text-[#111111] transition-colors"
-                >
-                  {dict.topBar.about}
-                </Link>
-                <Link
-                  href={`/${locale}/legal/delivery-returns`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-3.5 text-xs font-medium text-[#666666] hover:text-[#111111] transition-colors"
-                >
-                  {dict.topBar.delivery}
-                </Link>
-              </nav>
-            </div>
-
-            <div className="pt-5 mt-5 border-t border-[#EAEAEA] space-y-4">
-              <div className="space-y-2">
-                <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#666666]">
-                  {dict.nav.currencyLabel}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {activeCurrencies.map((curr) => {
-                    const selected = curr.code === activeCurrency.code;
-                    return (
-                      <button
-                        key={curr.code}
-                        type="button"
-                        onClick={() => setActiveCurrencyCode(curr.code)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-semibold border tabular-nums transition-colors ${
-                          selected
-                            ? 'bg-[#111111] text-white border-[#111111]'
-                            : 'bg-white text-[#111111] border-[#E0E0E0] hover:border-[#111111]'
-                        }`}
-                      >
-                        {curr.code} {curr.symbol}
-                      </button>
-                    );
-                  })}
-                </div>
+                  {mobileNavItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#111111] hover:text-[#666666] transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  <Link
+                    href={`/${locale}/about`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-3.5 text-xs font-medium text-[#666666] hover:text-[#111111] transition-colors"
+                  >
+                    {dict.topBar.about}
+                  </Link>
+                  <Link
+                    href={`/${locale}/legal/delivery-returns`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-3.5 text-xs font-medium text-[#666666] hover:text-[#111111] transition-colors"
+                  >
+                    {dict.topBar.delivery}
+                  </Link>
+                </nav>
               </div>
 
-              <div className="space-y-2">
-                <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#666666]">
-                  {dict.nav.languageLabel}
-                </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {LOCALES.map((loc) => {
-                    const meta = LOCALE_META[loc];
-                    const active = loc === locale;
-                    return (
-                      <button
-                        key={loc}
-                        type="button"
-                        onClick={() => switchLocale(loc)}
-                        className={`px-3 py-2 rounded-full text-xs font-semibold border transition-colors ${
-                          active
-                            ? 'bg-[#111111] text-white border-[#111111]'
-                            : 'bg-white text-[#111111] border-[#E0E0E0] hover:border-[#111111]'
-                        }`}
-                      >
-                        {meta.shortCode} · {meta.nativeName}
-                      </button>
-                    );
-                  })}
+              <div className="pt-5 mt-5 border-t border-[#EAEAEA] space-y-4">
+                <div className="space-y-2">
+                  <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#666666]">
+                    {dict.nav.currencyLabel}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeCurrencies.map((curr) => {
+                      const selected = curr.code === activeCurrency.code;
+                      return (
+                        <button
+                          key={curr.code}
+                          type="button"
+                          onClick={() => setActiveCurrencyCode(curr.code)}
+                          className={`px-3 py-1.5 rounded-full text-xs font-semibold border tabular-nums transition-colors ${
+                            selected
+                              ? 'bg-[#111111] text-white border-[#111111]'
+                              : 'bg-white text-[#111111] border-[#E0E0E0] hover:border-[#111111]'
+                          }`}
+                        >
+                          {curr.code} {curr.symbol}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#666666]">
+                    {dict.nav.languageLabel}
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {LOCALES.map((loc) => {
+                      const meta = LOCALE_META[loc];
+                      const active = loc === locale;
+                      return (
+                        <button
+                          key={loc}
+                          type="button"
+                          onClick={() => switchLocale(loc)}
+                          className={`px-3 py-2 rounded-full text-xs font-semibold border transition-colors ${
+                            active
+                              ? 'bg-[#111111] text-white border-[#111111]'
+                              : 'bg-white text-[#111111] border-[#E0E0E0] hover:border-[#111111]'
+                          }`}
+                        >
+                          {meta.shortCode} · {meta.nativeName}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </header>
   );
 }
